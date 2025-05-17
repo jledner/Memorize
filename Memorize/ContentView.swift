@@ -33,6 +33,7 @@ struct ContentView: View {
         .foregroundColor(.orange)
     }
     
+    
     var cardCountAdjusters: some View{
         HStack{
             cardRemover
