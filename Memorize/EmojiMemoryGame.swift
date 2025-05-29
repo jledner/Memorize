@@ -29,6 +29,7 @@ class EmojiMemoryGame: ObservableObject {
         "Juliette": ["🥺", "🌯", "🪼", "🥳", "🇨🇺", "🇪🇸", "🇮🇹", "🐶", "💕", "🤍", "🍝", "🍜"]
     ]
 
+
     
     private static func createMemoryGame(for theme: String) -> MemoryGame<String> {
         let emojis = emojisForTheme(theme)
@@ -42,9 +43,19 @@ class EmojiMemoryGame: ObservableObject {
         emojisByName[theme] ?? ["❓"]
     }
 
+    static func iconForTheme(_ theme: String) -> String {
+        switch theme {
+        case "Halloween": "moon.stars"
+        case "Sports": "sportscourt"
+        case "Countries": "globe"
+        case "Juliette": "heart.circle"
+        default: "questionmark"
+        }
+    }
     
     func resetGameWithTheme(_ theme: String) {
         model = EmojiMemoryGame.createMemoryGame(for: theme)
+        shuffle()
     }
         
     @Published private var model = createMemoryGame(for: "Halloween")
@@ -59,7 +70,7 @@ class EmojiMemoryGame: ObservableObject {
         model.shuffle()
     }
     
-    func choose(_ card: MemoryGame<String>.Card){
-        model.choose(card)
+    func choose(with card: MemoryGame<String>.Card){
+        model.choose(with: card)
     }
 }

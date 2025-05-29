@@ -13,12 +13,30 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            
+            ZStack {
+                Text("Memorize!")
+                    .font(.system(size: 40, weight: .black, design: .rounded))
+                    .foregroundColor(.clear) // Make the fill invisible
+                    .overlay(
+                        Text("Memorize!")
+                            .font(.system(size: 40, weight: .black, design: .rounded))
+                            .foregroundColor(.black) // Stroke color
+                    )
+                    .overlay(
+                        Text("Memorize!")
+                            .font(.system(size: 40, weight: .black, design: .rounded))
+                            .foregroundStyle(LinearGradient(colors: [.blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    )
+            }
             Picker("Theme", selection: $viewModel.theme) {
                 ForEach(EmojiMemoryGame.themes, id: \.self) { theme in
-                    Text(theme)
-                        .foregroundStyle(Color.white)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+                    HStack {
+                        Image(systemName: EmojiMemoryGame.iconForTheme(theme))
+                        Spacer().frame(width: 8)
+                        Text(theme)
+                            .foregroundStyle(Color.white)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+                    }
                 }
             }
             .foregroundStyle(Color.white)
@@ -43,7 +61,7 @@ struct EmojiMemoryGameView: View {
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
                     .onTapGesture {
-                        viewModel.choose(card)
+                        viewModel.choose(with: card)
                     }
             }
         }
