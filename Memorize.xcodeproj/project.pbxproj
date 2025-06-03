@@ -27,6 +27,7 @@
 		15E68ED72DB9F3F2003DA3EC /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E68EE42DB9F3F4003DA3EC /* MemorizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemorizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E68EEE2DB9F3F4003DA3EC /* MemorizeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemorizeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15FB2DB32DEF50EC009DBBC9 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +80,7 @@
 				15E68EE72DB9F3F4003DA3EC /* MemorizeTests */,
 				15E68EF12DB9F3F4003DA3EC /* MemorizeUITests */,
 				15E68ED82DB9F3F2003DA3EC /* Products */,
+				15FB2DB32DEF50EC009DBBC9 /* Untitled.swift */,
 			);
 			sourceTree = "<group>";
 		};

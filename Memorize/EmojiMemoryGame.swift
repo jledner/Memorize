@@ -10,7 +10,7 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
     
     @Published private var model: MemoryGame<String>
-    private(set) var theme: MemoryGame<String>.Theme
+    private(set) var theme: Theme
     
     init() {
         let chosenTheme = EmojiMemoryGame.themes.randomElement()!
@@ -27,15 +27,15 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     static let themes = 
-    [MemoryGame<String>.Theme(name: "Halloween", emojis: ["👻", "🎃", "🕷️", "💀", "☠️", "😱", "😈", "🙀"], numberOfPairs: 8, color: .orange),
-     MemoryGame<String>.Theme(name: "Sports", emojis: ["⚽️", "🏀", "🏈", "🎾", "🏐", "🏓", "🥊", "⛷️"], numberOfPairs: 8, color: .green),
-     MemoryGame<String>.Theme(name: "Countries", emojis: ["🇺🇸", "🇯🇵", "🇫🇷", "🇨🇦", "🇧🇷", "🇩🇪", "🇰🇷", "🇮🇹"], numberOfPairs: 6, color: .blue),
-     MemoryGame<String>.Theme(name: "Juliette", emojis: ["🥺", "🌯", "🪼", "🥳", "🇨🇺", "🇪🇸", "🇮🇹", "🐶", "💕", "🤍", "🍝", "🍜"], numberOfPairs: 10, color: .purple),
-     MemoryGame<String>.Theme(name: "Animals", emojis: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🦄"], numberOfPairs: 10, color: .cyan),
-     MemoryGame<String>.Theme(name: "Food", emojis: ["🍕", "🍔", "🍟", "🌭", "🍿", "🥪", "🌮", "🌯", "🥗", "🍣", "🍩", "🍪", "🍰", "🧁", "🍦", "🥤"], numberOfPairs: 10, color: .red)
+    [Theme(name: "Halloween", emojis: ["👻", "🎃", "🕷️", "💀", "☠️", "😱", "😈", "🙀"], numberOfPairs: 8, color: "orange"),
+     Theme(name: "Sports", emojis: ["⚽️", "🏀", "🏈", "🎾", "🏐", "🏓", "🥊", "⛷️"], numberOfPairs: 8, color: "green"),
+     Theme(name: "Countries", emojis: ["🇺🇸", "🇯🇵", "🇫🇷", "🇨🇦", "🇧🇷", "🇩🇪", "🇰🇷", "🇮🇹"], numberOfPairs: 6, color: "blue"),
+     Theme(name: "Juliette", emojis: ["🥺", "🌯", "🪼", "🥳", "🇨🇺", "🇪🇸", "🇮🇹", "🐶", "💕", "🤍", "🍝", "🍜"], numberOfPairs: 10, color: "purple"),
+     Theme(name: "Animals", emojis: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🦄"], numberOfPairs: 10, color: "cyan"),
+     Theme(name: "Food", emojis: ["🍕", "🍔", "🍟", "🌭", "🍿", "🥪", "🌮", "🌯", "🥗", "🍣", "🍩", "🍪", "🍰", "🧁", "🍦", "🥤"], numberOfPairs: 10, color: "red")
     ]
     
-    private static func createMemoryGame(for theme: MemoryGame<String>.Theme) -> MemoryGame<String> {
+    private static func createMemoryGame(for theme: Theme) -> MemoryGame<String> {
         MemoryGame(numberOfPairsOfCards: theme.numberOfPairs){
             pairIndex in theme.emojis[pairIndex]
         }
@@ -57,16 +57,17 @@ class EmojiMemoryGame: ObservableObject {
 }
 
 
-//extension MemoryGame<String>.Theme {
-//    var themeColor: Color {
-//        switch color.lowercased() {
-//        case "red": .red
-//        case "blue": .blue
-//        case "green": .green
-//        case "orange": .orange
-//        case "pink": .pink
-//        case "purple": .purple
-//        default: .gray
-//        }
-//    }
-//}
+extension Theme {
+    var themeColor: Color {
+        switch color.lowercased() {
+        case "red": .red
+        case "blue": .blue
+        case "green": .green
+        case "orange": .orange
+        case "pink": .pink
+        case "purple": .purple
+        case "cyan" : .cyan
+        default: .gray
+        }
+    }
+}

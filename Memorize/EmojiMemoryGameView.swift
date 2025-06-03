@@ -16,8 +16,6 @@ struct EmojiMemoryGameView: View {
                 .padding(3)
             title
             cards
-                .animation(.default, value: viewModel.cards)
-
         }
         .padding()
     }
@@ -62,15 +60,16 @@ struct EmojiMemoryGameView: View {
     
     private var cards: some View{
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio){ card in
-            VStack{
-                CardView(card)
-                    .padding(4)
-                    .onTapGesture {
+            CardView(card)
+                .padding(4)
+                .onTapGesture {
+                    withAnimation{
                         viewModel.choose(with: card)
                     }
-            }
+                }
+                .animation(.easeInOut, value: card.isMatched)
         }
-        .foregroundColor(viewModel.theme.color)
+        .foregroundColor(viewModel.theme.themeColor)
     }
 }
 
