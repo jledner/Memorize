@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     
+    
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent){
         cards = []
         // add numberPairsOfCards x 2 cards
+        
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex)
             cards.append(Card(content: content, id: "\(pairIndex+1)a"))
@@ -66,6 +69,13 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         var debugDescription: String {
             "\(id): \(content) \(isFaceUp ? "up" : "down")\(isMatched ? "matched" : "" )"
         }
+    }
+    
+    struct Theme {
+        var name: String
+        var emojis: [String]
+        var numberOfPairs = 0
+        var color: Color
     }
 }
 

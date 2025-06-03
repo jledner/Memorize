@@ -10,52 +10,54 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     private let aspectRatio: CGFloat = 2/3
-    
     var body: some View {
         VStack {
+            topNavBar
+                .padding(3)
             title
-            menu
             cards
                 .animation(.default, value: viewModel.cards)
-            Button("Shuffle"){
-                viewModel.shuffle()
-            }
+
         }
         .padding()
     }
     
-    private var title : some View {
-        ZStack {
-            Text("Memorize!")
-                .font(.system(size: 40, weight: .black, design: .rounded))
-                .foregroundColor(.clear) // Make the fill invisible
-                .overlay(
-                    Text("Memorize!")
-                        .font(.system(size: 40, weight: .black, design: .rounded))
-                        .foregroundColor(.black) // Stroke color
-                )
-                .overlay(
-                    Text("Memorize!")
-                        .font(.system(size: 40, weight: .black, design: .rounded))
-                        .foregroundStyle(LinearGradient(colors: [.blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
-                )
+    private var topNavBar : some View {
+        HStack{
+            Button("New Game"){
+                viewModel.resetGame()
+            }
+            Spacer()
+            Text(viewModel.theme.name)
+                .fontWeight(.bold) // Make it bold
+                .foregroundColor(.white) // White text
+                .padding(6)
+                .background(.indigo) // Blue background
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+                .opacity(0.8)
         }
+        .font(.system(size: 22))
     }
     
-    private var menu : some View{
-        Picker("Theme", selection: $viewModel.theme) {
-            ForEach(EmojiMemoryGame.themes, id: \.self) { theme in
-                HStack {
-                    Image(systemName: EmojiMemoryGame.iconForTheme(theme))
-                    Spacer().frame(width: 8)
-                    Text(theme)
-                        .foregroundStyle(Color.white)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
-                }
+    private var title : some View {
+        VStack {
+            ZStack {
+                Text("Memorize!")
+                    .font(.system(size: 40, weight: .black, design: .rounded))
+                    .foregroundColor(.clear) // Make the fill invisible
+                    .overlay(
+                        Text("Memorize!")
+                            .font(.system(size: 40, weight: .black, design: .rounded))
+                            .foregroundColor(.black) // Stroke color
+                    )
+                    .overlay(
+                        Text("Memorize!")
+                            .font(.system(size: 40, weight: .black, design: .rounded))
+                            .foregroundStyle(LinearGradient(colors: [.blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    )
+                    .padding(2)
             }
         }
-        .foregroundStyle(Color.white)
-        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
     }
     
     private var cards: some View{
@@ -68,7 +70,7 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundColor(Color.orange)
+        .foregroundColor(viewModel.theme.color)
     }
 }
 
