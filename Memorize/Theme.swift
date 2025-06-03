@@ -3,4 +3,5 @@ struct Theme {
     var emojis: [String]
     var numberOfPairs = 0
     var color: String
+    var icon: String
 }

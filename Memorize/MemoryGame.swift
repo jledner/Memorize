@@ -9,9 +9,12 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
+    private(set) var seen: Array<String>
+    private(set) var score = 0
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent){
         cards = []
+        seen = []
         // add numberPairsOfCards x 2 cards
         
         for pairIndex in 0..<max(0, numberOfPairsOfCards) {
@@ -32,14 +35,34 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }) {
             if !cards[chosenIndex].isFaceUp && !cards[chosenIndex].isMatched {
                 if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                    let chosenCardContent = cards[chosenIndex].content as! String
+                    let otherCardContent = cards[potentialMatchIndex].content as! String
                     if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchIndex].isMatched = true
+                        score += 2
+                    }
+                    else{
+                        // check if cards at the potential match index && chosen index are already in the array, and if so, increment score, otherwise add them using code below
+                        if seen.contains(chosenCardContent){
+                            score -= 1
+                        }
+                        else {
+                            seen.append(chosenCardContent)
+                        }
+                        if seen.contains(otherCardContent){
+                            score -= 1
+                        }
+                        else {
+                            seen.append(otherCardContent)
+                        }
                     }
                 } else{
                     indexOfTheOneAndOnlyFaceUpCard = chosenIndex
+                    print(seen)
                 }
                 cards[chosenIndex].isFaceUp = true
+                print(score)
             }
         }
     }
@@ -55,7 +78,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     mutating func shuffle(){
         cards = cards.shuffled()
-        print(cards)
+    }
+    
+    mutating func resetScore(){
+        score = 0
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
