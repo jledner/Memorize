@@ -13,35 +13,8 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            ZStack {
-                Text("Memorize!")
-                    .font(.system(size: 40, weight: .black, design: .rounded))
-                    .foregroundColor(.clear) // Make the fill invisible
-                    .overlay(
-                        Text("Memorize!")
-                            .font(.system(size: 40, weight: .black, design: .rounded))
-                            .foregroundColor(.black) // Stroke color
-                    )
-                    .overlay(
-                        Text("Memorize!")
-                            .font(.system(size: 40, weight: .black, design: .rounded))
-                            .foregroundStyle(LinearGradient(colors: [.blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    )
-            }
-            Picker("Theme", selection: $viewModel.theme) {
-                ForEach(EmojiMemoryGame.themes, id: \.self) { theme in
-                    HStack {
-                        Image(systemName: EmojiMemoryGame.iconForTheme(theme))
-                        Spacer().frame(width: 8)
-                        Text(theme)
-                            .foregroundStyle(Color.white)
-                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
-                    }
-                }
-            }
-            .foregroundStyle(Color.white)
-            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-            
+            title
+            menu
             cards
                 .animation(.default, value: viewModel.cards)
             Button("Shuffle"){
@@ -51,6 +24,39 @@ struct EmojiMemoryGameView: View {
         .padding()
     }
     
+    private var title : some View {
+        ZStack {
+            Text("Memorize!")
+                .font(.system(size: 40, weight: .black, design: .rounded))
+                .foregroundColor(.clear) // Make the fill invisible
+                .overlay(
+                    Text("Memorize!")
+                        .font(.system(size: 40, weight: .black, design: .rounded))
+                        .foregroundColor(.black) // Stroke color
+                )
+                .overlay(
+                    Text("Memorize!")
+                        .font(.system(size: 40, weight: .black, design: .rounded))
+                        .foregroundStyle(LinearGradient(colors: [.blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
+                )
+        }
+    }
+    
+    private var menu : some View{
+        Picker("Theme", selection: $viewModel.theme) {
+            ForEach(EmojiMemoryGame.themes, id: \.self) { theme in
+                HStack {
+                    Image(systemName: EmojiMemoryGame.iconForTheme(theme))
+                    Spacer().frame(width: 8)
+                    Text(theme)
+                        .foregroundStyle(Color.white)
+                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+                }
+            }
+        }
+        .foregroundStyle(Color.white)
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
+    }
     
     private var cards: some View{
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio){ card in
