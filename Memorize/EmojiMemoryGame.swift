@@ -16,18 +16,10 @@ class EmojiMemoryGame: ObservableObject {
         let chosenTheme = EmojiMemoryGame.themes.randomElement()!
         model = EmojiMemoryGame.createMemoryGame(for: chosenTheme)
         theme = chosenTheme
-    }
-
-    func resetGame() {
-        var newTheme = EmojiMemoryGame.themes.randomElement()!
-        newTheme.emojis.shuffle()
-        model = EmojiMemoryGame.createMemoryGame(for: newTheme)
-        theme = newTheme
-        model.resetScore()
         shuffle()
     }
     
-    static let themes = 
+    private static let themes = 
     [Theme(name: "Halloween", emojis: ["👻", "🎃", "🕷️", "💀", "☠️", "😱", "😈", "🙀"], numberOfPairs: 8, color: "orange", icon: "moon"),
      Theme(name: "Sports", emojis: ["⚽️", "🏀", "🏈", "🎾", "🏐", "🏓", "🥊", "⛷️"], numberOfPairs: 8, color: "green", icon: "flame"),
      Theme(name: "Countries", emojis: ["🇺🇸", "🇯🇵", "🇫🇷", "🇨🇦", "🇧🇷", "🇩🇪", "🇰🇷", "🇮🇹"], numberOfPairs: 6, color: "blue", icon: "star"),
@@ -42,11 +34,11 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    var cards: Array<MemoryGame<String>.Card>{
+    var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }
     
-    var score: Int{
+    var score: Int {
         return model.score
     }
     
@@ -56,8 +48,17 @@ class EmojiMemoryGame: ObservableObject {
         model.shuffle()
     }
     
-    func choose(with card: MemoryGame<String>.Card){
+    func choose(with card: MemoryGame<String>.Card) {
         model.choose(with: card)
+    }
+    
+    func resetGame() {
+        var newTheme = EmojiMemoryGame.themes.randomElement()!
+        newTheme.emojis.shuffle()
+        model = EmojiMemoryGame.createMemoryGame(for: newTheme)
+        theme = newTheme
+        model.resetScore()
+        shuffle()
     }
 }
 
@@ -88,8 +89,8 @@ extension Theme {
         case "heart": return Image(systemName: "heart.fill")          // ❤️
         case "moon": return Image(systemName: "moon.fill")         // 🌙
         case "cloud": return Image(systemName: "cloud.fill")          // ☁️
-        case "fork": return Image(systemName: "fork.knife")          //
-        case "dog": return Image(systemName: "dog.fill")
+        case "fork": return Image(systemName: "fork.knife")          // 🍴
+        case "dog": return Image(systemName: "dog.fill")             // 🐕
         default: return Image(systemName: "questionmark.circle.fill") // ❓
         }
     }

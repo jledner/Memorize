@@ -17,6 +17,7 @@ struct EmojiMemoryGameView: View {
                 topNavBar
                 title
                 cards
+                    .animation(.snappy, value: viewModel.cards)
                 score
             }
             .padding()
@@ -36,7 +37,6 @@ struct EmojiMemoryGameView: View {
             newGameButtonComponent
             Spacer()
             themeComponent
-                
         }
         .padding(.horizontal)
         .padding(.top, 10)
@@ -106,7 +106,6 @@ struct EmojiMemoryGameView: View {
                 .onTapGesture {
                     viewModel.choose(with: card)
                 }
-                .animation(.easeInOut, value: card.isMatched)
         }
         .foregroundColor(viewModel.theme.themeColor)
     }
@@ -135,7 +134,7 @@ struct EmojiMemoryGameView: View {
             .shadow(radius: 10)
             .padding(.horizontal, 30)
             .padding(.bottom, 40)
-            .font(.title3)
+            .font(.title)
             }
     }
 }
